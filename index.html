@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QTY+</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            height: 100vh;
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .container {
+            background: #1e1e2e;
+            border: 1px solid #333344;
+            border-radius: 15px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            max-width: 900px;
+            width: 100%;
+            height: fit-content;
+            max-height: 95vh;
+        }
+
+        .main-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .left-column {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .right-column {
+            display: flex;
+            flex-direction: column;
+        }
+
+        h1 {
+            text-align: center;
+            color: #ffffff;
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .section {
+            background: #2a2a3e;
+            border: 1px solid #3a3a4e;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-left: 4px solid #667eea;
+        }
+
+        .section h2 {
+            color: #e0e0e0;
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .input-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+
+        .input-field {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            color: #b0b0b0;
+            margin-bottom: 6px;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        input[type="number"] {
+            padding: 8px 10px;
+            border: 2px solid #4a4a5e;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            background: #1a1a2e;
+            color: #ffffff;
+        }
+
+        input[type="number"]:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+        }
+
+        .amount-needed {
+            background: #1a2332;
+            border: 2px solid #2196f3;
+            border-radius: 8px;
+            padding: 10px;
+            margin-top: 8px;
+            text-align: center;
+            font-weight: 600;
+            color: #64b5f6;
+            font-size: 0.95rem;
+        }
+
+        .results {
+            background: linear-gradient(135deg, #2d3748, #4a5568);
+            color: white;
+            border-left: none;
+            border: 1px solid #4a5568;
+        }
+
+        .results h2 {
+            color: white;
+            margin-bottom: 12px;
+        }
+
+        .result-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 12px;
+        }
+
+        .result-item {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 12px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .result-label {
+            font-size: 0.85rem;
+            opacity: 0.9;
+            margin-bottom: 6px;
+        }
+
+        .result-value {
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        .clear-button {
+            background: linear-gradient(135deg, #e53e3e, #c53030);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 20px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+            width: 100%;
+        }
+
+        .clear-button:hover {
+            background: linear-gradient(135deg, #c53030, #9c2626);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(197, 48, 48, 0.3);
+        }
+
+        .clear-button:active {
+            transform: translateY(0);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+                margin: 5px;
+                max-width: 550px;
+            }
+
+            .main-layout {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            h1 {
+                font-size: 1.6rem;
+                margin-bottom: 12px;
+            }
+
+            .input-group {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+
+            .result-grid {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+
+            .section {
+                padding: 12px;
+                margin-bottom: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 5px;
+            }
+
+            .container {
+                padding: 12px;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+                margin-bottom: 10px;
+            }
+
+            .section h2 {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>QTY+</h1>
+        
+        <div class="main-layout">
+            <div class="left-column">
+                <div class="section">
+                    <h2>First Purchase</h2>
+                    <div class="input-group">
+                        <div class="input-field">
+                            <label for="oldPrice">Old Price (₹)</label>
+                            <input type="number" id="oldPrice" step="0.01" min="0" placeholder="Enter old price">
+                        </div>
+                        <div class="input-field">
+                            <label for="oldQuantity">Quantity</label>
+                            <input type="number" id="oldQuantity" step="1" min="0" placeholder="Enter quantity">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2>Second Purchase</h2>
+                    <div class="input-group">
+                        <div class="input-field">
+                            <label for="newPrice">New Price (₹)</label>
+                            <input type="number" id="newPrice" step="0.01" min="0" placeholder="Enter new price">
+                        </div>
+                        <div class="input-field">
+                            <label for="newQuantity">Quantity</label>
+                            <input type="number" id="newQuantity" step="1" min="0" placeholder="Enter quantity">
+                        </div>
+                    </div>
+                    <div class="amount-needed" id="amountNeeded">
+                        Amount needed: ₹0.00
+                    </div>
+                </div>
+
+
+
+                <button class="clear-button" id="clearButton">Clear</button>
+            </div>
+
+            <div class="right-column">
+                <div class="section results">
+                    <h2>Results</h2>
+                    <div class="result-grid">
+                        <div class="result-item">
+                            <div class="result-label">Average Price</div>
+                            <div class="result-value" id="averagePrice">₹0.00</div>
+                        </div>
+                        <div class="result-item">
+                            <div class="result-label">Total Quantity</div>
+                            <div class="result-value" id="totalQuantity">0</div>
+                        </div>
+                        <div class="result-item">
+                            <div class="result-label">Total Investment</div>
+                            <div class="result-value" id="totalInvestment">₹0.00</div>
+                        </div>
+                        <div class="result-item">
+                            <div class="result-label">Current Value</div>
+                            <div class="result-value" id="currentValue">₹0.00</div>
+                        </div>
+                        <div class="result-item">
+                            <div class="result-label">Profit/Loss</div>
+                            <div class="result-value" id="profitLoss">₹0.00 (0.00%)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Currency formatter for Indian Rupees
+        const formatCurrency = (amount) => {
+            return new Intl.NumberFormat('en-IN', {
+                style: 'currency',
+                currency: 'INR',
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            }).format(amount);
+        };
+
+        // Format number with commas
+        const formatNumber = (num) => {
+            return new Intl.NumberFormat('en-IN').format(num);
+        };
+
+        // Get input elements
+        const oldPriceInput = document.getElementById('oldPrice');
+        const oldQuantityInput = document.getElementById('oldQuantity');
+        const newPriceInput = document.getElementById('newPrice');
+        const newQuantityInput = document.getElementById('newQuantity');
+
+        // Get result elements
+        const amountNeededElement = document.getElementById('amountNeeded');
+        const averagePriceElement = document.getElementById('averagePrice');
+        const totalQuantityElement = document.getElementById('totalQuantity');
+        const totalInvestmentElement = document.getElementById('totalInvestment');
+        const currentValueElement = document.getElementById('currentValue');
+        const profitLossElement = document.getElementById('profitLoss');
+
+        // Calculate and update results
+        function calculateResults() {
+            // Get input values
+            const oldPrice = parseFloat(oldPriceInput.value) || 0;
+            const oldQuantity = parseInt(oldQuantityInput.value) || 0;
+            const newPrice = parseFloat(newPriceInput.value) || 0;
+            const newQuantity = parseInt(newQuantityInput.value) || 0;
+            // Use newPrice as current price
+            const currentPrice = newPrice;
+
+            // Calculate amount needed for new purchase
+            const amountNeeded = newPrice * newQuantity;
+            amountNeededElement.textContent = `Amount needed: ${formatCurrency(amountNeeded)}`;
+
+            // Calculate totals
+            const totalQuantity = oldQuantity + newQuantity;
+            const oldInvestment = oldPrice * oldQuantity;
+            const newInvestment = newPrice * newQuantity;
+            const totalInvestment = oldInvestment + newInvestment;
+
+            // Calculate average price
+            const averagePrice = totalQuantity > 0 ? totalInvestment / totalQuantity : 0;
+
+            // Calculate current value and profit/loss
+            const currentValue = currentPrice * totalQuantity;
+            const profitLoss = currentValue - totalInvestment;
+            const profitLossPercent = totalInvestment > 0 ? (profitLoss / totalInvestment) * 100 : 0;
+
+            // Update basic results
+            averagePriceElement.textContent = formatCurrency(averagePrice);
+            totalQuantityElement.textContent = formatNumber(totalQuantity);
+            totalInvestmentElement.textContent = formatCurrency(totalInvestment);
+
+            // Update current value and profit/loss
+            currentValueElement.textContent = formatCurrency(currentValue);
+            
+            // Color code profit/loss and combine amount with percentage
+            const profitLossColor = profitLoss >= 0 ? '#4ade80' : '#f87171';
+            profitLossElement.textContent = `${formatCurrency(profitLoss)} (${profitLossPercent.toFixed(2)}%)`;
+            profitLossElement.style.color = profitLossColor;
+        }
+
+        // Clear all fields function
+        function clearAllFields() {
+            // Clear all input fields
+            oldPriceInput.value = '';
+            oldQuantityInput.value = '';
+            newPriceInput.value = '';
+            newQuantityInput.value = '';
+            
+            // Recalculate to reset results
+            calculateResults();
+        }
+
+        // Add event listeners for real-time updates
+        oldPriceInput.addEventListener('input', calculateResults);
+        oldQuantityInput.addEventListener('input', calculateResults);
+        newPriceInput.addEventListener('input', calculateResults);
+        newQuantityInput.addEventListener('input', calculateResults);
+
+        // Add event listener for clear button
+        document.getElementById('clearButton').addEventListener('click', clearAllFields);
+
+        // Initial calculation
+        calculateResults();
+    </script>
+</body>
+</html> 
