@@ -1,0 +1,19 @@
+{
+    "name": "QTY+",
+    "short_name": "QTY+",
+    "icons": [
+        {
+            "src": "/favicon-32x32.png",
+            "sizes": "32x32",
+            "type": "image/png"
+        },
+        {
+            "src": "/apple-touch-icon.png",
+            "sizes": "180x180",
+            "type": "image/png"
+        }
+    ],
+    "theme_color": "#667eea",
+    "background_color": "#1a1a2e",
+    "display": "standalone"
+} 
