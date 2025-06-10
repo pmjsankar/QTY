@@ -21,12 +21,17 @@
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-            height: 100vh;
+            min-height: 100vh;
             padding: 10px;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+
+        .page-wrapper {
             display: flex;
-            justify-content: center;
+            flex-direction: column;
+            min-height: 100vh;
             align-items: center;
-            overflow: hidden;
         }
 
         .container {
@@ -38,7 +43,8 @@
             max-width: 900px;
             width: 100%;
             height: fit-content;
-            max-height: 95vh;
+            margin: 20px 0;
+            flex: 1;
         }
 
         .main-layout {
@@ -240,10 +246,161 @@
                 font-size: 1rem;
             }
         }
+
+        /* Percentage Calculator Styles */
+        .percentage-section {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #3a3a4e;
+        }
+
+        .percentage-calculator {
+            width: 100%;
+        }
+
+        .percentage-input-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .percentage-text {
+            color: #e0e0e0;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .percentage-input {
+            padding: 8px 12px;
+            border: 2px solid #4a4a5e;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            background: #1a1a2e;
+            color: #ffffff;
+            width: 100px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .percentage-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+        }
+
+        .calculate-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 8px 16px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .calculate-btn:hover {
+            background: linear-gradient(135deg, #5a67d8, #6b46c1);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+
+        .calculate-btn:active {
+            transform: translateY(0);
+        }
+
+        .percentage-result {
+            background: #1a2332;
+            border: 2px solid #2196f3;
+            border-radius: 8px;
+            padding: 8px 16px;
+            color: #64b5f6;
+            font-weight: 600;
+            font-size: 1rem;
+            min-width: 80px;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .percentage-input-row {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 8px;
+            }
+
+            .percentage-input {
+                width: 100%;
+            }
+
+            .percentage-text {
+                text-align: center;
+            }
+
+            .calculate-btn {
+                width: 100%;
+            }
+
+                         .percentage-result {
+                 width: 100%;
+             }
+         }
+
+         /* Copyright Footer Styles */
+         .copyright-footer {
+             width: 100%;
+             background: rgba(26, 26, 46, 0.9);
+             border-top: 1px solid #3a3a4e;
+             padding: 20px 0;
+             text-align: center;
+             margin-top: auto;
+         }
+
+         .copyright-content {
+             max-width: 900px;
+             margin: 0 auto;
+             padding: 0 20px;
+         }
+
+         .copyright-footer p {
+             color: #b0b0b0;
+             margin: 0;
+             font-size: 0.9rem;
+             line-height: 1.5;
+         }
+
+         .copyright-subtext {
+             font-size: 0.8rem !important;
+             opacity: 0.8;
+             margin-top: 5px !important;
+         }
+
+         @media (max-width: 768px) {
+             .copyright-footer {
+                 padding: 15px 0;
+                 margin-top: 20px;
+             }
+
+             .copyright-content {
+                 padding: 0 15px;
+             }
+
+             .copyright-footer p {
+                 font-size: 0.85rem;
+             }
+
+             .copyright-subtext {
+                 font-size: 0.75rem !important;
+             }
+         }
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="page-wrapper">
+        <div class="container">
         <h1>QTY+</h1>
         
         <div class="main-layout">
@@ -279,8 +436,6 @@
                     </div>
                 </div>
 
-
-
                 <button class="clear-button" id="clearButton">Clear</button>
             </div>
 
@@ -312,6 +467,64 @@
                 </div>
             </div>
         </div>
+
+        <!-- New Percentage Calculations Section -->
+        <div class="percentage-section">
+            <h2 style="color: #ffffff; text-align: center; margin-bottom: 20px; font-size: 1.4rem;">Percentage Calculations</h2>
+            
+            <!-- What is X% of Y? -->
+            <div class="section">
+                <div class="percentage-calculator">
+                    <div class="percentage-input-row">
+                        <span class="percentage-text">What is</span>
+                        <input type="number" class="percentage-input" id="percent1" placeholder="%" step="0.01">
+                        <span class="percentage-text">% of</span>
+                        <input type="number" class="percentage-input" id="value1" placeholder="Value" step="0.01">
+                        <span class="percentage-text">?</span>
+                        <button class="calculate-btn" onclick="calculatePercentOf()">CALCULATE</button>
+                        <div class="percentage-result" id="result1">0</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- X is what percent of Y? -->
+            <div class="section">
+                <div class="percentage-calculator">
+                    <div class="percentage-input-row">
+                        <input type="number" class="percentage-input" id="value2" placeholder="Value" step="0.01">
+                        <span class="percentage-text">is what percent of</span>
+                        <input type="number" class="percentage-input" id="total2" placeholder="Total" step="0.01">
+                        <span class="percentage-text">?</span>
+                        <button class="calculate-btn" onclick="calculateWhatPercent()">CALCULATE</button>
+                        <div class="percentage-result" id="result2">0%</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Percentage increase/decrease -->
+            <div class="section">
+                <div class="percentage-calculator">
+                    <div class="percentage-input-row">
+                        <span class="percentage-text">Percentage change from</span>
+                        <input type="number" class="percentage-input" id="oldValue" placeholder="From" step="0.01">
+                        <span class="percentage-text">to</span>
+                        <input type="number" class="percentage-input" id="newValue" placeholder="To" step="0.01">
+                        <span class="percentage-text">?</span>
+                        <button class="calculate-btn" onclick="calculatePercentChange()">CALCULATE</button>
+                        <div class="percentage-result" id="result3">0%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+
+        <!-- Copyright Footer -->
+        <footer class="copyright-footer">
+            <div class="copyright-content">
+                <p>&copy; 2025 QTY+. All rights reserved.</p>
+                <p class="copyright-subtext">Designed with ❤️ for smart investing</p>
+            </div>
+        </footer>
     </div>
 
     <script>
@@ -409,6 +622,38 @@
 
         // Initial calculation
         calculateResults();
+
+        // Percentage Calculator Functions
+        function calculatePercentOf() {
+            const percent = parseFloat(document.getElementById('percent1').value) || 0;
+            const value = parseFloat(document.getElementById('value1').value) || 0;
+            const result = (percent / 100) * value;
+            document.getElementById('result1').textContent = formatNumber(result.toFixed(2));
+        }
+
+        function calculateWhatPercent() {
+            const value = parseFloat(document.getElementById('value2').value) || 0;
+            const total = parseFloat(document.getElementById('total2').value) || 0;
+            const result = total !== 0 ? (value / total) * 100 : 0;
+            document.getElementById('result2').textContent = result.toFixed(2) + '%';
+        }
+
+        function calculatePercentChange() {
+            const oldVal = parseFloat(document.getElementById('oldValue').value) || 0;
+            const newVal = parseFloat(document.getElementById('newValue').value) || 0;
+            const result = oldVal !== 0 ? ((newVal - oldVal) / oldVal) * 100 : 0;
+            const resultElement = document.getElementById('result3');
+            resultElement.textContent = result.toFixed(2) + '%';
+            
+            // Color code the result
+            if (result > 0) {
+                resultElement.style.color = '#4ade80'; // Green for increase
+            } else if (result < 0) {
+                resultElement.style.color = '#f87171'; // Red for decrease
+            } else {
+                resultElement.style.color = '#64b5f6'; // Blue for no change
+            }
+        }
     </script>
 </body>
 </html> 
